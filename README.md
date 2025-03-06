@@ -15,8 +15,8 @@ Este é um aplicativo Android de lista de tarefas (ToDo List) desenvolvido em **
 ---
 
 ## 📸 Capturas de Tela
-<img src="https://github.com/user-attachments/assets/0ac2a332-63f6-496c-8c8e-2d44afac1d93" width="175px"> <img src="https://github.com/user-attachments/assets/cd8eba0e-fe09-417c-b8cb-67d5211a1a64" width="175px"> <img src="https://github.com/user-attachments/assets/3c25321a-9301-43a7-bedf-f45b4c74dd49" width="175px"> <img src="https://github.com/user-attachments/assets/e8a7456f-a71c-4efe-bcdd-e7b49adbf79f" width="175px">
-<img src="https://github.com/user-attachments/assets/cf401401-30b5-44e9-b5c0-128e11a03915" width="175px">
+<img src="https://github.com/user-attachments/assets/0ac2a332-63f6-496c-8c8e-2d44afac1d93" width="200px"> <img src="https://github.com/user-attachments/assets/cd8eba0e-fe09-417c-b8cb-67d5211a1a64" width="200px"> <img src="https://github.com/user-attachments/assets/3c25321a-9301-43a7-bedf-f45b4c74dd49" width="200px"> <img src="https://github.com/user-attachments/assets/e8a7456f-a71c-4efe-bcdd-e7b49adbf79f" width="200px">
+<img src="https://github.com/user-attachments/assets/cf401401-30b5-44e9-b5c0-128e11a03915" width="200px">
 
 ---
 
