@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import br.com.dutavo.mytodoapp.MainActivity
 import br.com.dutavo.mytodoapp.databinding.ActivityRegisterBinding
+import br.com.dutavo.mytodoapp.ui.todo.ToDoActivity
 import br.com.dutavo.mytodoapp.viewmodel.RegisterViewModel
 
 class RegisterActivity : AppCompatActivity(){
@@ -45,7 +46,7 @@ class RegisterActivity : AppCompatActivity(){
 
         registerViewModel.navigateToHome.observe(this, Observer { navigate ->
             if(navigate) {
-                startActivity(Intent(this, DashboardActivity::class.java))
+                startActivity(Intent(this, ToDoActivity::class.java))
                 registerViewModel.OnNavigatedToHomeComplete()
             }
         })

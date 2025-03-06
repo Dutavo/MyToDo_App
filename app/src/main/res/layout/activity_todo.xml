@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".ui.todo.ToDoActivity">
+
+    <!-- Campo de entrada para adicionar nova tarefa -->
+    <EditText
+        android:id="@+id/editTextTodo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Adicione sua tarefa aqui..."
+        android:padding="10dp"
+        android:background="@android:drawable/edit_text"
+        android:textSize="16sp"/>
+
+    <!-- Botão de adicionar tarefa -->
+
+    <!-- Lista de tarefas -->
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/addButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/fundo_gradiente"
+        android:textColor="#FFFFFF"
+        android:layout_marginTop="10dp"
+        android:text="Adicionar" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+</LinearLayout>

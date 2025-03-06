@@ -25,6 +25,9 @@
             android:name=".activity.DashboardActivity"
             android:exported="false"/>
         <activity
+            android:name=".ui.todo.ToDoActivity"
+            android:exported="false"/>
+        <activity
             android:name=".activity.IntroActivity"
             android:exported="true">
             <intent-filter>
