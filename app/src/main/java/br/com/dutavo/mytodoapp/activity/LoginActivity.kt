@@ -20,6 +20,7 @@ class LoginActivity : AppCompatActivity(){
         binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        //Realizar o login
         binding.buttonLogin.setOnClickListener {
             val email = binding.editTextEmail.text.toString()
             val senha = binding.editTextSenha.text.toString()
@@ -27,19 +28,24 @@ class LoginActivity : AppCompatActivity(){
             if(email.isEmpty() || senha.isEmpty()){
                 Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
             } else {
+                //Realiza o login
                 loginViewModel.login(email, senha)
             }
         }
 
+        //Imagem X de fechar
         binding.imageViewFechar.setOnClickListener {
             finish()
         }
 
+        //Observar o status do login
         loginViewModel.loginStatus.observe(this, Observer { status ->
             Toast.makeText(this, status, Toast.LENGTH_SHORT).show()
         })
 
+        //Observar se o login foi bem-sucedido
         loginViewModel.navigateToHome.observe(this, Observer { navigate ->
+            //Ir para a tela principal
             if (navigate) {
                 startActivity(Intent(this, ToDoActivity::class.java))
                 loginViewModel.OnNavigatedToHomeComplete()

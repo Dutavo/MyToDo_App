@@ -23,6 +23,7 @@ class RegisterActivity : AppCompatActivity(){
 
         setContentView(binding.root)
 
+        //Realizar o cadastro
         binding.buttonRegister.setOnClickListener {
             val nome = binding.editTextNome.text.toString()
             val email = binding.editTextEmail.text.toString()
@@ -31,19 +32,24 @@ class RegisterActivity : AppCompatActivity(){
             if(nome.isEmpty() || email.isEmpty() || senha.isEmpty()){
                 Toast.makeText(this, "Preencha todos os campos", Toast.LENGTH_SHORT).show()
             } else {
+                //Realiza o cadastro
                 registerViewModel.register(nome, email, senha)
             }
         }
 
+        //Imagem X de fechar
         binding.imageViewFechar.setOnClickListener {
             finish()
         }
 
+        //Observar o status do cadastro
         registerViewModel.registerStatus.observe(this, Observer { status ->
             Toast.makeText(this, status, Toast.LENGTH_SHORT).show()
         })
 
+        //Observar se o cadastro foi bem-sucedido
         registerViewModel.navigateToHome.observe(this, Observer { navigate ->
+            //Ir para a tela principal
             if(navigate) {
                 startActivity(Intent(this, ToDoActivity::class.java))
                 registerViewModel.OnNavigatedToHomeComplete()

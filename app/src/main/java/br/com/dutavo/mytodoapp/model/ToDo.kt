@@ -1,4 +1,4 @@
-package br.com.dutavo.mytodoapp.data.model
+package br.com.dutavo.mytodoapp.model
 
 data class ToDo(
     var id: String = "",

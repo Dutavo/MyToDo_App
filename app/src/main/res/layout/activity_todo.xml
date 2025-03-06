@@ -9,6 +9,24 @@
     android:padding="16dp"
     tools:context=".ui.todo.ToDoActivity">
 
+
+    <!-- Título Centralizado -->
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="ToDo - List"
+        android:textSize="32sp"
+        android:textStyle="bold"
+        android:textColor="#FFFFFF"
+        android:gravity="center"
+        android:background="@drawable/fundo_gradiente_quadrado"
+        android:padding="10dp"/>
+
+    <!-- Espaço entre o título e o campo de entrada -->
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="20dp"/>
+
     <!-- Campo de entrada para adicionar nova tarefa -->
     <EditText
         android:id="@+id/editTextTodo"
@@ -34,7 +52,18 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:layout_marginTop="10dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"/>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/logoutButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Logout"
+        android:background="@drawable/fundo_gradiente"
+        android:textColor="#FFFFFF"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp" />
 </LinearLayout>

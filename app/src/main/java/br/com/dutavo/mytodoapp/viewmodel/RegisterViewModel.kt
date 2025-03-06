@@ -8,14 +8,15 @@ import com.google.firebase.auth.FirebaseAuth
 class RegisterViewModel : ViewModel(){
 
     private val _registerStatus = MutableLiveData<String>()
-
     val registerStatus : LiveData<String> get() = _registerStatus
 
     private val _navigateToHome = MutableLiveData<Boolean>()
     val navigateToHome : LiveData<Boolean> get() = _navigateToHome
 
+    //Instância do Firebase Authentication
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
+    //Função para realizar o registro
     fun register(nome: String, email: String, senha: String) {
         auth.createUserWithEmailAndPassword(email, senha)
             .addOnCompleteListener { registro ->
@@ -28,6 +29,7 @@ class RegisterViewModel : ViewModel(){
         }
     }
 
+    //Navegação para a tela principal
     fun OnNavigatedToHomeComplete() {
         _navigateToHome.value = false
     }

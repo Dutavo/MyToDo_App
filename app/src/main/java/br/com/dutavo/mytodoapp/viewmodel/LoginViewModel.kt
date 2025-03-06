@@ -15,6 +15,7 @@ class LoginViewModel : ViewModel(){
 
     private val auth: FirebaseAuth = FirebaseAuth.getInstance()
 
+    //Função para realizar o login
     fun login(email: String, senha: String) {
         auth.signInWithEmailAndPassword(email, senha)
             .addOnCompleteListener { login ->
@@ -27,6 +28,7 @@ class LoginViewModel : ViewModel(){
             }
     }
 
+    //Navegação para a tela principal
     fun OnNavigatedToHomeComplete() {
         _navigateToHome.value = false
     }
