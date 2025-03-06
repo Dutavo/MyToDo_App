@@ -3,11 +3,10 @@ package br.com.dutavo.mytodoapp.ui.todo
 import android.os.Bundle
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.com.dutavo.mytodoapp.R
 import br.com.dutavo.mytodoapp.data.model.ToDo
 import br.com.dutavo.mytodoapp.databinding.ActivityTodoBinding
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import java.util.UUID
 
@@ -17,6 +16,7 @@ class ToDoActivity : AppCompatActivity() {
     private lateinit var adapter: ToDoAdapter
     private val firestore = FirebaseFirestore.getInstance()
     private val todoList = mutableListOf<ToDo>()
+    private val userId: String? get() = FirebaseAuth.getInstance().currentUser?.uid
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -52,22 +52,39 @@ class ToDoActivity : AppCompatActivity() {
     }
 
     private fun loadTodos() {
-        firestore.collection("todos").get().addOnSuccessListener { result ->
+        if (userId == null) {
+            Toast.makeText(this, "Erro: Usuário não autenticado", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        firestore.collection("todos")
+            .whereEqualTo("userId", userId)
+            .get()
+            .addOnSuccessListener { result ->
             todoList.clear()
             for (document in result) {
                 val todo = document.toObject(ToDo::class.java)
                 todoList.add(todo)
             }
             adapter.notifyDataSetChanged()
-        }
+
+        }.addOnFailureListener {
+                Toast.makeText(this, "Erro ao carregar tarefas", Toast.LENGTH_SHORT).show()
+            }
     }
 
     private fun addTodo(title: String) {
+        if (userId == null) {
+            Toast.makeText(this, "Erro: Usuário não autenticado", Toast.LENGTH_SHORT).show()
+        }
+
         val todo = ToDo(
             id = UUID.randomUUID().toString(),
             title = title,
             completed = false,
+            userId = userId!!
         )
+
         firestore.collection("todos").document(todo.id).set(todo)
             .addOnSuccessListener {
                 todoList.add(todo)
@@ -98,49 +115,3 @@ class ToDoActivity : AppCompatActivity() {
             }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /*override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityTodoBinding.inflate(layoutInflater)
-        setContentView(binding.root)
-
-        viewModel = ViewModelProvider(this).get(ToDoViewModel::class.java)
-
-        adapter = ToDoAdapter(emptyList(),
-            onTodoChecked = { viewModel.updateTodo(it) },
-            onDelete = { viewModel.deleteTodo(it) }
-        )
-
-        recyclerView.layoutManager = LinearLayoutManager(this)
-        recyclerView.adapter = adapter
-
-        viewModel.todos.observe(this) { adapter.updateList(it) }
-
-        binding.addButton.setOnClickListener {
-            val todoTitle = binding.editTextTodo.text.toString()
-            if (todoTitle.isNotEmpty()) {
-                viewModel.addTodo(todoTitle)
-                binding.editTextTodo.text.clear()
-            }
-        }
-
-        addButton.setOnClickListener {
-            val todoTitle = editTextTodo.text.toString()
-            if (todoTitle.isNotEmpty()) {
-                viewModel.addTodo(todoTitle)
-                editTextTodo.text.clear()
-            }
-        }
-    }*/

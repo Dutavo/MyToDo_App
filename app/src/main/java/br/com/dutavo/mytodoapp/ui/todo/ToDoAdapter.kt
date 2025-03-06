@@ -1,13 +1,8 @@
 package br.com.dutavo.mytodoapp.ui.todo
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
-import android.widget.ImageButton
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import br.com.dutavo.mytodoapp.R
 import br.com.dutavo.mytodoapp.data.model.ToDo
 import br.com.dutavo.mytodoapp.databinding.ItemTodoBinding
 

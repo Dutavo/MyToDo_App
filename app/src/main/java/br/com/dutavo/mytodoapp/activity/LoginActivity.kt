@@ -6,7 +6,6 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import br.com.dutavo.mytodoapp.MainActivity
 import br.com.dutavo.mytodoapp.databinding.ActivityLoginBinding
 import br.com.dutavo.mytodoapp.ui.todo.ToDoActivity
 import br.com.dutavo.mytodoapp.viewmodel.LoginViewModel
