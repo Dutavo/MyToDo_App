@@ -19,7 +19,7 @@
             android:name=".activity.RegisterActivity"
             android:exported="false"/>
         <activity
-            android:name=".ui.todo.ToDoActivity"
+            android:name=".activity.ToDoActivity"
             android:exported="false"/>
         <activity
             android:name=".activity.IntroActivity"

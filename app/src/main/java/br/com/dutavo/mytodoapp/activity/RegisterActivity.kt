@@ -7,7 +7,6 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import br.com.dutavo.mytodoapp.databinding.ActivityRegisterBinding
-import br.com.dutavo.mytodoapp.ui.todo.ToDoActivity
 import br.com.dutavo.mytodoapp.viewmodel.RegisterViewModel
 
 class RegisterActivity : AppCompatActivity(){

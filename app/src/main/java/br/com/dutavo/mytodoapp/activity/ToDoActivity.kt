@@ -1,24 +1,26 @@
-package br.com.dutavo.mytodoapp.ui.todo
+package br.com.dutavo.mytodoapp.activity
 
 import android.content.Intent
 import android.os.Bundle
 import android.widget.Toast
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import br.com.dutavo.mytodoapp.model.ToDo
 import br.com.dutavo.mytodoapp.databinding.ActivityTodoBinding
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.firestore.FirebaseFirestore
-import br.com.dutavo.mytodoapp.activity.LoginActivity
-import java.util.UUID
+import br.com.dutavo.mytodoapp.ui.todo.ToDoAdapter
+import br.com.dutavo.mytodoapp.viewmodel.ToDoViewModel
 
 class ToDoActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityTodoBinding
     private lateinit var adapter: ToDoAdapter
-    private val firestore = FirebaseFirestore.getInstance()
-    private val todoList = mutableListOf<ToDo>()
-    private val userId: String? get() = FirebaseAuth.getInstance().currentUser?.uid
+
+    //private val firestore = FirebaseFirestore.getInstance()
+
+    //private val todoList = mutableListOf<ToDo>()
+    //private val userId: String? get() = FirebaseAuth.getInstance().currentUser?.uid
+
+    private val viewModel: ToDoViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -29,36 +31,44 @@ class ToDoActivity : AppCompatActivity() {
 
         //Configuração do RecycleView
         adapter = ToDoAdapter(
-            todoList,
-            onTodoChecked = { todo, isChecked -> updateTodoStatus(todo, isChecked) },
-            onDeleteTodo = { todo -> deleteTodo(todo) }
+            mutableListOf(),
+            onTodoChecked = { todo, isChecked -> viewModel.updateTodoStatus(todo, isChecked) },
+            onDeleteTodo = { todo -> viewModel.deleteTodo(todo) }
         )
 
-        //Configuração do botão de logout
-        binding.logoutButton.setOnClickListener{
-            logoutUser()
-        }
 
         //Configuração do RecycleView
         binding.recyclerView.layoutManager = LinearLayoutManager(this)
         binding.recyclerView.adapter = adapter
 
-        //Carregar tarefas do firestore
-        loadTodos()
+
+        // Observando mudanças na lista de tarefas
+        viewModel.todoList.observe(this) { todos ->
+            adapter.updateData(todos) // Atualiza a RecyclerView de forma eficiente
+        }
 
         //Adicionar nova tarefa ao Firestore
         binding.addButton.setOnClickListener {
             val todoText = binding.editTextTodo.text.toString()
             if (todoText.isNotEmpty()) {
-                addTodo(todoText)
+                viewModel.addTodo(todoText)
                 binding.editTextTodo.text.clear()
             } else {
                 Toast.makeText(this, "Adicione uma tarefa!", Toast.LENGTH_SHORT).show()
             }
         }
-    }
 
-    //Função para carregar tarefas do Firestore
+        binding.logoutButton.setOnClickListener {
+            if (viewModel.logoutUser()) {
+                Toast.makeText(this, "Logout bem-sucedido", Toast.LENGTH_SHORT).show()
+                startActivity(Intent(this, LoginActivity::class.java))
+                finish()
+            }
+        }
+    }
+}
+
+    /*//Função para carregar tarefas do Firestore
     private fun loadTodos() {
         if (userId == null) {
             Toast.makeText(this, "Erro: Usuário não autenticado", Toast.LENGTH_SHORT).show()
@@ -140,4 +150,4 @@ class ToDoActivity : AppCompatActivity() {
         startActivity(intent)
         finish() // Fecha a atividade atual para evitar que o usuário volte pressionando "Voltar"
     }
-}
+}*/

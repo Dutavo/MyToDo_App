@@ -7,7 +7,7 @@ import br.com.dutavo.mytodoapp.model.ToDo
 import br.com.dutavo.mytodoapp.databinding.ItemTodoBinding
 
 class ToDoAdapter(
-    private var todoList: List<ToDo>,
+    private var todoList: MutableList<ToDo>,
     private val onTodoChecked: (ToDo, Boolean) -> Unit,
     private val onDeleteTodo: (ToDo) -> Unit
 ) : RecyclerView.Adapter<ToDoAdapter.ToDoViewHolder>() {
@@ -41,5 +41,11 @@ class ToDoAdapter(
     }
 
     override fun getItemCount() = todoList.size
+
+    fun updateData(newTodoList: List<ToDo>) {
+        todoList.clear()
+        todoList.addAll(newTodoList)
+        notifyDataSetChanged()
+    }
 
 }
